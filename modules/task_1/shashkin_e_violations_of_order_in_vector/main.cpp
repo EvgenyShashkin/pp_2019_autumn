@@ -22,7 +22,11 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_const_ordered_vector) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  std::vector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  std::vector<int> vec(9);
+
+  for (size_t i = 0; i < vec.size(); ++i) {
+    vec[i] = i;
+  }
 
   int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
 
