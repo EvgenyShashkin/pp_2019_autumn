@@ -1,7 +1,9 @@
+// Copyright 2019 Shashkin Evgeny
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
 #include <iostream>
-#include "../shashkin_e_violations_of_order_in_vector/violations_of_order_in_vector.h"
+#include <vector>
+#include "../../../modules/task_1/shashkin_e_violations_of_order_in_vector/violations_of_order_in_vector.h"
 
 TEST(Count_of_violations_of_order_in_vec, Test_on_empty_vector) {
   int rank;
@@ -20,7 +22,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_const_ordered_vector) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  std::vector<int> vec = { 1,2,3,4,5,6,7,8,9 };
+  std::vector<int> vec = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
   int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
 
@@ -33,7 +35,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_const_unordered_vector) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  std::vector<int> vec = { 5,3,3,4,9,6,7,1,9 };
+  std::vector<int> vec = { 5, 3, 3, 4, 9, 6, 7, 1, 9 };
 
   int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
 
