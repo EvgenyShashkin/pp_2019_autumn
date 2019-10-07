@@ -1,14 +1,13 @@
+// Copyright 2019 Shashkin Evgeny
 #include <mpi.h>
 #include <random>
 #include <ctime>
-#include <stdlib.h>
 #include <vector>
 #include <iostream>
 #include "../../../modules/task_1/shashkin_e_violations_of_order_in_vector/violations_of_order_in_vector.h"
 
 
 std::vector<int> GetRandomVector(size_t size) {
-  srand(time(0));
   std::vector<int> vec(size);
 
   for (size_t i = 0; i < size; ++i) {
