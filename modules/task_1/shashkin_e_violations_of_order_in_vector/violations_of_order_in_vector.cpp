@@ -8,10 +8,12 @@
 
 
 std::vector<int> GetRandomVector(size_t size) {
+  std::mt19937 gen;
+  gen.seed(time(0));
   std::vector<int> vec(size);
 
   for (size_t i = 0; i < size; ++i) {
-    vec[i] = rand() % 10;
+    vec[i] = gen() % 10;
   }
 
   return vec;
