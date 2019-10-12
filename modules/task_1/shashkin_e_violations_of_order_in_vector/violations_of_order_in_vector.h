@@ -4,7 +4,7 @@
 #include <vector>
 
 std::vector<int> GetRandomVector(size_t size);
-int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec);
+int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec, size_t vec_size);
 int GetCountOfViolationsOfOrderInVector(const std::vector<int> &vec);
 
 

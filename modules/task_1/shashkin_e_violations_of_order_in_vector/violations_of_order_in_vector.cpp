@@ -19,7 +19,7 @@ std::vector<int> GetRandomVector(size_t size) {
   return vec;
 }
 
-int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec) {
+int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec, size_t vec_size) {
   int size, rank;
   int local_count = 0;
   int total_count = 0;
@@ -28,21 +28,21 @@ int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec) {
   MPI_Comm_size(MPI_COMM_WORLD, &size);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  const int delta = vec.size() / size;
-  const int remainder = vec.size() % size;
+  const int delta = vec_size / size;
+  const int remainder = vec_size % size;
 
-  std::vector<int> local_vec(delta);
+  std::vector<int> local_vec(delta+1);
 
   if (rank == 0) {
     if (delta > 0) {
       for (int proc = 1; proc < size; ++proc) {
-        MPI_Send(&vec[0] + proc * delta + remainder, delta, MPI_INT, proc, 0, MPI_COMM_WORLD);
+        MPI_Send(&vec[0] + proc * delta+remainder-1, delta+1, MPI_INT, proc, 0, MPI_COMM_WORLD);
       }
     }
     local_vec = std::vector<int>(vec.begin(), vec.begin() + delta + remainder);
   } else {
     if (delta > 0) {
-      MPI_Recv(&local_vec[0], delta, MPI_INT, 0, 1, MPI_COMM_WORLD, &status);
+      MPI_Recv(&local_vec[0], delta+1, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
     }
   }
 

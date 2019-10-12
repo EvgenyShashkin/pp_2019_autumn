@@ -11,14 +11,14 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_empty_vector) {
 
   std::vector<int> vec = GetRandomVector(0);
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec,0);
 
   if (rank == 0) {
     ASSERT_EQ(parallel_count, 0);
   }
 }
 
-/*TEST(Count_of_violations_of_order_in_vec, Test_on_const_ordered_vector) {
+TEST(Count_of_violations_of_order_in_vec, Test_on_const_ordered_vector) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
@@ -28,7 +28,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_empty_vector) {
     vec[i] = i;
   }
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec, 9);
 
   if (rank == 0) {
     ASSERT_EQ(parallel_count, 0);
@@ -39,15 +39,15 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_const_unordered_vector) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-  std::vector<int> vec = { 5, 3, 3, 4, 9, 6, 7, 1, 9 };
+  std::vector<int> vec = { 5, 3, 3, 4, 6, 9, 7, 1, 9 };
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec,9);
 
   if (rank == 0) {
     ASSERT_EQ(parallel_count, 3);
   }
 }
-*/
+
 TEST(Count_of_violations_of_order_in_vec, Test_on_random_vector_with_2_elements) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -60,7 +60,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_random_vector_with_2_elements)
     vec = GetRandomVector(size);
   }
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec, size);
 
   if (rank == 0) {
     int seqential_count = GetCountOfViolationsOfOrderInVector(vec);
@@ -80,7 +80,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_random_vector_with_50_elements
     vec = GetRandomVector(size);
   }
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec, size);
 
   if (rank == 0) {
     int seqential_count = GetCountOfViolationsOfOrderInVector(vec);
