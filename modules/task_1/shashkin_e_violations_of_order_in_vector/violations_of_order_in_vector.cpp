@@ -31,6 +31,9 @@ int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec, siz
   const int delta = vec_size / size;
   const int remainder = vec_size % size;
 
+  if (vec_size < size) {
+    return GetCountOfViolationsOfOrderInVector(vec);
+  }
   std::vector<int> local_vec(delta+1);
 
   if (rank == 0) {
