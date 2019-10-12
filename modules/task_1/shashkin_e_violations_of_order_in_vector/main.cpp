@@ -11,7 +11,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_empty_vector) {
 
   std::vector<int> vec = GetRandomVector(0);
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec,0);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec, 0);
 
   if (rank == 0) {
     ASSERT_EQ(parallel_count, 0);
@@ -41,7 +41,7 @@ TEST(Count_of_violations_of_order_in_vec, Test_on_const_unordered_vector) {
 
   std::vector<int> vec = { 5, 3, 3, 4, 6, 9, 7, 1, 9 };
 
-  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec,9);
+  int parallel_count = GetCountOfViolationsOfOrderInVectorParallel(vec, 9);
 
   if (rank == 0) {
     ASSERT_EQ(parallel_count, 3);
