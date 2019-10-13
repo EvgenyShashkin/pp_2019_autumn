@@ -19,7 +19,7 @@ std::vector<int> GetRandomVector(size_t size) {
   return vec;
 }
 
-int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec, size_t vec_size) {
+int GetCountOfViolationsOfOrderInVectorParallel(const std::vector<int> &vec, int vec_size) {
   int size, rank;
   int local_count = 0;
   int total_count = 0;
