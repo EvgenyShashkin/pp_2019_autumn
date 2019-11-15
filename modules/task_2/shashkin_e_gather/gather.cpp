@@ -6,9 +6,8 @@
 #include <algorithm>
 #include <cmath>
 
-int Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount, 
+int Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recvbuf, int recvcount,
   MPI_Datatype recvtype, int root, MPI_Comm comm) {
-
   int size, rank;
   int sendtype_size, recvtype_size;
   MPI_Status status;
@@ -31,10 +30,10 @@ int Gather(const void *sendbuf, int sendcount, MPI_Datatype sendtype, void *recv
         MPI_Recv(reinterpret_cast<char*>(recvbuf) + recvcount * recvtype_size * i, recvcount,
             recvtype, i, 0, comm, &status);
     }
-  }
-  else {
+  } else {
     MPI_Send(sendbuf, sendcount, sendtype, root, 0, comm);
   }
 
   return MPI_SUCCESS;
 }
+
