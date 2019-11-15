@@ -149,4 +149,4 @@ int main(int argc, char** argv) {
   listeners.Append(new GTestMPIListener::MPIMinimalistPrinter);
   return RUN_ALL_TESTS();
 }
- 
+
