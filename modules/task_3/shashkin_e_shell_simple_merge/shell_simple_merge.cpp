@@ -38,8 +38,9 @@ std::vector<int> ShellSort(const std::vector<int> &vec, int vec_size) {
 
 std::vector<int> SimpleMerge(const std::vector<int> &vec1, const std::vector<int> &vec2, int vec1_size, int vec2_size) {
   int i = 0, j = 0;
-  std::vector<int> result(vec1_size + vec2_size);
-  for (int k = 0; k < result.size(); k++) {
+  int vec_size = vec1_size + vec2_size;
+  std::vector<int> result(vec_size);
+  for (int k = 0; k < vec_size; k++) {
     if (i > vec1_size - 1) {
       int tmp = vec2[j];
       result[k] = tmp;
