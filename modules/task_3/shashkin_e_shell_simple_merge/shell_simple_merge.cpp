@@ -22,40 +22,37 @@ std::vector<int> GetRandomVector(int size) {
   return vec;
 }
 
-std::vector<int> ShellSort(std::vector<int> &vec, int size) {
+std::vector<int> ShellSort(const std::vector<int> &vec, int vec_size) {
   int step, i, j, tmp;
+  std::vector<int> result(vec);
 
-  for (step = size / 2; step > 0; step /= 2)
-    for (i = step; i < size; i++)
-      for (j = i - step; j >= 0 && vec[j] > vec[j + step]; j -= step) {
-        tmp = vec[j];
-        vec[j] = vec[j + step];
-        vec[j + step] = tmp;
+  for (step = vec_size / 2; step > 0; step /= 2)
+    for (i = step; i < vec_size; i++)
+      for (j = i - step; j >= 0 && result[j] > result[j + step]; j -= step) {
+        tmp = result[j];
+        result[j] = result[j + step];
+        result[j + step] = tmp;
       }
-  return vec;
+  return result;
 }
 
-std::vector<int> SimpleMerge(std::vector <int> &vec1, std::vector <int> &vec2, int vec1_size, int vec2_size) {
+std::vector<int> SimpleMerge(const std::vector<int> &vec1, const std::vector<int> &vec2, int vec1_size, int vec2_size) {
   int i = 0, j = 0;
   std::vector<int> result(vec1_size + vec2_size);
   for (int k = 0; k < result.size(); k++) {
-
     if (i > vec1_size - 1) {
       int tmp = vec2[j];
       result[k] = tmp;
       j++;
-    }
-    else if (j > vec2_size - 1) {
+    } else if (j > vec2_size - 1) {
       int tmp = vec1[i];
       result[k] = tmp;
       i++;
-    }
-    else if (vec1[i] < vec2[j]) {
+    } else if (vec1[i] < vec2[j]) {
       int tmp = vec1[i];
       result[k] = tmp;
       i++;
-    }
-    else {
+    } else {
       int tmp = vec2[j];
       result[k] = tmp;
       j++;
@@ -65,7 +62,7 @@ std::vector<int> SimpleMerge(std::vector <int> &vec1, std::vector <int> &vec2, i
   return result;
 }
 
-std::vector<int> ShellSimpleMerge(std::vector<int> &vec, int vec_size) {
+std::vector<int> ShellSimpleMerge(std::vector<int> vec, int vec_size) {
   int size, rank;
   int merge_size = 1;
   MPI_Status status;
@@ -77,8 +74,9 @@ std::vector<int> ShellSimpleMerge(std::vector<int> &vec, int vec_size) {
     return vec;
 
   if (size > vec_size) {
-    vec = ShellSort(vec, vec.size());
-    return vec;
+    std::vector<int> tmp;
+    tmp = ShellSort(vec, vec.size());
+    return tmp;
   }
 
   std::vector<int> result;
@@ -88,8 +86,7 @@ std::vector<int> ShellSimpleMerge(std::vector<int> &vec, int vec_size) {
       result.push_back(vec[i]);
 
     result = ShellSort(result, result.size());
-  }
-  else {
+  } else {
     return vec;
   }
 
@@ -102,7 +99,6 @@ std::vector<int> ShellSimpleMerge(std::vector<int> &vec, int vec_size) {
     }
     if (rank % merge_size == 0 && (rank + merge_size / 2) < size && result.size() != 0) {
       int local_vec_size;
-      
       MPI_Probe(rank + merge_size / 2, 0, MPI_COMM_WORLD, &status);
       MPI_Get_count(&status, MPI_INT, &local_vec_size);
 

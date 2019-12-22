@@ -2,6 +2,7 @@
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
 #include <iostream>
+#include <vector>
 #include "../../task_3/shashkin_e_shell_simple_merge/shell_simple_merge.h"
 
 TEST(Shell_simple_merge, test_on_const_vector_equal) {
@@ -108,8 +109,8 @@ TEST(Shell_simple_merge, test_on_random_vector_with_size_100_qeual) {
     res_seq = ShellSort(tmp, size);
     /*double end_seq = MPI_Wtime();*/
     EXPECT_EQ(res_parallel, res_seq);
-    /*std::cout << end_seq - start_seq << "\n";
-    std::cout << end_parallel - start_parallel << "\n";*/
+    /*std::cout << "Sequential: " << end_seq - start_seq << "\n";
+    std::cout << "Parallel: " << end_parallel - start_parallel << "\n";*/
   }
 }
 

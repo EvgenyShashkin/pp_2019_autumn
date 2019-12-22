@@ -6,8 +6,8 @@
 #include <vector>
 
 std::vector<int> GetRandomVector(int size);
-std::vector<int> ShellSort(std::vector<int> &vec, int size);
-std::vector<int> ShellSimpleMerge(std::vector<int> &vec, int vec_size);
-std::vector<int> SimpleMerge(std::vector<int> &vec1, std::vector <int> &vec2, int vec1_size, int vec2_size);
+std::vector<int> ShellSort(const std::vector<int> &vec, int vec_size);
+std::vector<int> ShellSimpleMerge(std::vector<int> vec, int vec_size);
+std::vector<int> SimpleMerge(const std::vector<int> &vec1,const std::vector<int> &vec2, int vec1_size, int vec2_size);
 
 #endif  // MODULES_TASK_3_SHASHKIN_E_SHELL_SIMPLE_MERGE_SHELL_SIMPLE_MERGE_H_
